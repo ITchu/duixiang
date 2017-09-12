@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script>
+// function fun1 () {
+// }
+// var obj=new fun1();
+
+   var obj={};
+   obj.name='zhang';
+   console.log(obj);
+
+//构造函数添加属性和方法
+   function phone(size,color,money){
+   	this.size=size;
+   	this.color=color;
+   	this.money=money;
+   	this.msg=function (){
+   		alert('发短信');
+   		return '收信息'
+   	};
+   	this.music=function(){
+   		alert('听音乐');
+   	}
+   }
+   var iphone=new phone(5.5,'red');
+   console.log(iphone);
+   iphone['msg']();//弹出 发短信
+   iphone.name='iphone8';//添加属性name
+   console.log(iphone);
+   console.log(iphone['size']);//5.5
+   alert(iphone.constructor);
+   delete iphone.name;
+   //遍历iphone的属性
+   //i 表示字符串
+   for(var i in iphone){
+   	console.log(`${i}-----${iphone[i]}`);//size-----5.5
+   	console.log(`${i}-----${iphone.i}`);//size-----undefined
+   	console.log(iphone[i]);
+   }
+   //json方法
+   //声明前赋值
+   var obj={
+   	name: '小明',
+    birth: 1990,
+    school: 'No.1 Middle School',
+    height: 1.70,
+    weight: 65,
+    score: null};
+    console.log(obj.name);//小明
+
+    var xiaohong = {
+     name: '小红',
+    'middle-school': 'No.1 Middle School'
+    };
+    //'middle-school'不是一个有效的变量，就需要用''括起来。访问这个属性也无法使用.操作符，必须用['xxx']来访问;
+    console.log(xiaohong['middle-school']);//No.1 Middle School
+    console.log(xiaohong);
+    
+    //声明后赋值
+    var xiaoming={};
+    xiaoming.name='xiao';
+    xiaoming.age=20;
+    xiaoming.score=90;
+    console.log(xiaoming);
+    //检测xiaoming是否拥有score属性
+    alert('score' in xiaoming);//true
+    //因为toString定义在object对象中，而所有对象最终都会在原型链上指向object，所以xiaoming也拥有toString属性。
+    alert('toString' in xiaoming); //true
+    //要判断一个属性是否是xiaoming自身拥有的，而不是继承得到的，可以用hasOwnProperty()方法：
+    console.log(xiaohong.hasOwnProperty('name'));
+    console.log(xiaohong.hasOwnProperty('toString'));
+     //类语法  类首字母一般大写
+    class Student{
+    	constructor(){
+    		this.name='zhangsan';
+    		this.age=20;
+    		this.say=function(){
+    			alert('说话');
+    		}
+    	};
+    	study(){
+    		alert('学习');
+    	};
+    }
+    var zhangsan=new Student();
+    zhangsan.say();
+    zhangsan.study();
+    console.log(zhangsan);
+</script>
