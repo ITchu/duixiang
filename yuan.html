@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象</title>
+	<script>
+		//继承
+		function Person(){
+			this.name='zhangsan';
+			this.age=20;
+			this.sing=function(){
+				console.log('唱歌');
+			};
+		} 
+		Person.prototype={
+	    	say:function(){
+	    		console.log(this.name);
+	    	},
+	    	play:function(s){
+				console.log(`${s}在玩`);
+			}
+	    }
+	    Person.prototype.eat=function(name){
+	    	console.log(`${name}吃饭`);
+	    }
+		let zhangsan=new Person();
+		let lisi=new Person();
+	    lisi.play('e');
+		lisi.eat('wang');
+		console.log(zhangsan.name==lisi.name);//true
+		console.log(zhangsan.say()==lisi.say());//true
+		console.log(zhangsan.say==lisi.say);//true
+	     //删除对象属性、方法
+	    delete lisi.name;
+	    delete lisi.sing;
+	    console.log(lisi.sing);
+	    console.log(lisi);
+	    //判断lisi的构造函数是不是Person
+	    console.log(lisi instanceof Person);
+        //指向原型对象
+	    function Student(){
+	    	this.class='wuif1707-1';
+	    	this.number='1707003';
+	    	this.skill=function(){
+	    		console.log('学习');
+	    	}
+	    }
+	    Student.prototype=new Person();
+	    var chu=new Student();
+	    console.log(chu);
+	    chu.eat('chu');
+	    chu.play('楚');
+	    console.log(chu.__proto__);
+	    //字符串对象
+	    var str='sa张dahdksdaks';
+	    console.log(str.length);//9
+	    console.log(String.constructor);
+	    console.log(str.charAt(3));//d
+	    console.log(str.charCodeAt(1));//97
+	    console.log(String.fromCharCode(98));//b
+	    console.log(str.indexOf('da'));//3
+	    console.log(str.lastIndexOf('ks'));//11
+	    var str1=str.slice(2,7);
+	    console.log(str1);//张dahd
+	    console.log(str.slice(0,-1));//sa张dahdksdak
+	    //replaceAll 替换字符串中所有满足条件的字符
+	    //str 要替换的字符串  rStr  要替换的字符
+	    //str2  替换后的字符
+	    var str='sa张dahdksdaks';
+	    function replaceAll(str,rStr){
+	    	//不知道循环次数 知道循环条件
+	    	//循环条件  存在rStr
+	    	//repeat 字符串的重复
+	    	let str2='*'.repeat(rStr.length);
+	    	//循环的重复
+	    	/*let str2='';
+	    	for (let i = 0; i < rStr.length; i++) {
+	    		str2+='*';
+	    	}*/
+	    	while(str.includes(rStr)){
+	    		//替换  更新
+	    		str=str.replace(rStr,str2);
+	    	}
+	    	return str;
+	    }
+	    let string=replaceAll(str,'da','*');
+	    console.log(string);
+       //查找字符串中所以满足条件的字符的位置
+	    function includesAll(str,rStr){
+	    	let a=[];
+	    	let star='*'.repeat(rStr.length);
+	    	while(str.includes(rStr)){
+	    		a.push(str.indexOf(rStr));
+	    		str=str.replace(rStr,star);
+	    	}
+	    	return a;
+	    } 
+	     //输出指定字符串出现的每个位置
+	    let wang='https://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.com';
+	    let zhan=includesAll(wang,'baidu');
+        console.log(zhan);
+        function find(str,rStr){
+        	let a=[];
+        	for(let i=0;i<str.length;i++){
+        		if(str.substr(i,rStr.length)==rStr){
+        			a.push(i);
+        		}
+        	}
+        	return a;
+        }
+        let zhan2=find(wang,'baidu');
+        console.log(find(wang,'baidu'));
+        //构造函数的属性
+        function Person(){
+        	this.name ='karry';
+        	this.age=18;
+        }
+        Person.sing='不完美小孩'
+        let star=new Person();
+        console.log(star);
+        console.log(star.sing);
+        console.log(Person.sing);
+        //数组的面向对象
+        var arr=new Array(5);
+        console.log(arr);
+        var arr2=Array.of(5);
+        console.log(arr2);
+          //两个数组的合并
+        var arr=['a','b','c','d','e'];
+        var arr2=[1,2,3,4];
+        console.log(arr.concat(arr2));
+        //数组的遍历
+        arr.forEach(function(value,index,obj){
+        	console.log(`${value}---${index}---${obj}`);
+        });
+        //数组的排序
+        let ar=[1,5,23,3,38,94,20];
+        console.log(ar.sort());//字符串对应的ASCII码值[1, 20, 23, 3, 38, 5, 94]
+        let jie=ar.sort((a,b)=> a-b>0);
+        console.log(jie);//升序[1, 3, 5, 20, 23, 38, 94]
+        let guo=ar.sort((a,b)=>a-b<0);
+        console.log(guo);//降序[94, 38, 23, 20, 5, 3, 1]
+        //判断是否重复
+        let arr3=[1,2,3,4,1,2,5];
+        let arr4=[];
+        arr3.forEach(function(value){
+        	if(!arr4.includes(value)){
+        		arr4.push(value);
+        	}
+        });
+        console.log(arr4);
+        //判断是否重复，重复输出最后一次出现的位置
+        Array.prototype.delRepeat=function(){
+        	let ar=[];
+        	for(var i=0;i<this.length;i++){
+        	  let temp=true;
+        		for(var j=i+1;j<this.length;j++){
+        			if(this[i]==this[j]){
+        			temp=false;
+        			break;
+        		    }
+        	    }
+        	    if(temp){
+        	    	ar.push(this[i]);
+        	    }
+            }
+            return ar;
+        }
+        console.log(arr3.delRepeat());
+        //对数组进行随机数取整
+        	//while语句
+        	let shu=['a','b','c','d','e','f',1,2,3,4]; 	
+        	function sui(arr,num){
+        		let shu2=[];
+        		let result;
+        		//num  重复的个数
+        	   while(shu2.length<num){
+        	   	//result 下标  对数组下标进行随机数取整
+        	       result=Math.floor(Math.random()*arr.length);
+        	       if(!shu2.includes(arr[result])){
+        	       	shu2.push(arr[result]);
+        	       }  
+        	    }
+        	    console.log(shu2);
+        	}
+        	sui(shu,4);
+        	//for循环
+        	function sui2(arr,num){
+        		let shu2=[];
+        		let result;
+        		for(let i=0;i<num;i++){
+        			result=Math.floor(Math.random()*arr.length);
+        			if(shu2.includes(arr[result])){
+        				i--;
+        			}
+        			else{
+        				shu2.push(arr[result]);
+        			}
+        		}
+        		return shu2;
+        	}
+        	console.log(sui2(shu,3));
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
